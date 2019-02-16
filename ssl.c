@@ -29,20 +29,30 @@ printf("Things to expect:\n1.) The second stage of labor will last anywhere from
 printf("\nPress ENTER to proceed:");
 c = getchar();
 	
+/*	Questions to think about for pressure sensor
 
+1.) The normalized average pressure is about 20 Hz, does it change depending on how far along the baby is?
+
+2.) 
+
+*/
 
 //Section where algorithm for second stage of labor is implemented
 
 
 //bool ready = true;
 //bool contraction = true;
-int curPress, curPush;
+int curPress;
+int curPush1[200], curPush2[200], curPush3[200];
 int goal, totPushes, secs, retTime;
-goal = 200;
-secs = 5;
+int j=0;
+int i=0;
+srand(time(NULL));
+goal = 800;
+secs = 3;
 totPushes = 0;
 
-//srand(time(NULL));
+
 
 printf("\nStarting up data collection\n");
 curPress = 20;
@@ -51,14 +61,36 @@ retTime = time(0) + secs;
 while(totPushes < goal){
 	while(time(0) < retTime){
 		printf("Current stabalized pressure is: %d\n", curPress);
+		printf("Current stabalized pressure is: %d\n", curPress-1);
+		printf("Current stabalized pressure is: %d\n", curPress-2);
+		printf("Current stabalized pressure is: %d\n", curPress-3);
+		printf("Current stabalized pressure is: %d\n", curPress-4);
+		printf("Current stabalized pressure is: %d\n", curPress-5);
+		printf("Current stabalized pressure is: %d\n", curPress-4);
+		printf("Current stabalized pressure is: %d\n", curPress-3);
+		printf("Current stabalized pressure is: %d\n", curPress-2);
+		printf("Current stabalized pressure is: %d\n", curPress-1);
 	}
-	secs = 3;
-
+	secs = rand() % 8 + 1;
+	
+	
 	printf("Contractions are about to occur\n");
-	printf("Enter your push strength:");
-	scanf("%d", &curPush);
-	printf("\nYour push strength was: %d\n", curPush);
-	totPushes += curPush;
+	printf("\nEnter your first push strength:");
+	scanf("%d", &curPush1[i]);
+
+	printf("\nEnter your second push strength:");
+	scanf("%d", &curPush2[i]);
+
+	if(curPush2[i] < curPush1[i]){
+		printf("I believe in you! You got this\n\n");
+	}
+	printf("\nEnter your third push strength:");
+	scanf("%d", &curPush3[i]);
+	totPushes += curPush1[i]+curPush2[i]+curPush3[i];
+	//printf("\nYour push strength was: %d\n", curPush[i]);
+	
+	i++;
+	j++;
 	retTime = time(0) + secs;	
 }
 
@@ -67,6 +99,12 @@ if(totPushes >= goal){
 	printf("Congratulations on your beautiful delivery!\n\n");
   }
 
+printf("The number of sets were: %d\n\n", j);
+for(i=0; i<j; i++){
+	printf("Your first push in set %d was: %d\n", i, curPush1[i]);
+	printf("Your second push in set %d was: %d\n", i, curPush2[i]);
+	printf("Your third push in set %d was: %d\n\n\n", i, curPush3[i]);
+}
 
 return(0);
 }
